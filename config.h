@@ -231,6 +231,7 @@ static Key keys[] = {
 	{ ALTMOD,                       XK_minus,            setlayout,      {.v = &layouts[5]} },
 	{ ALTMOD,                       XK_egrave,           setlayout,      {.v = &layouts[6]} },
 	{ MODKEY,                       XK_space,  setlayout,         {0} },
+	{ MODKEY,                       XK_s,      togglesticky,      {0} },
 	{ MODKEY|ShiftMask,             XK_space,  togglefloating,    {0} },
 	{ MODKEY|ShiftMask,             XK_z,      togglealwaysontop, {0} },
 	{ MODKEY|ShiftMask,             XK_f,      togglefullscr,     {0} },
