@@ -18,7 +18,7 @@ static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 1;        /* 0 means bottom bar */
 static int barvertpad         = 3;        /* vertical padding for status text */
 static const int focusonwheel       = 0;
-static const int vertpad            = 3;       /* vertical padding of bar */
+static const int vertpad            = 4;       /* vertical padding of bar */
 static const int sidepad            = 3;       /* horizontal padding of bar */
 static const int user_bh            = 34;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
@@ -103,9 +103,9 @@ static const Rule rules[] = {
 	/* class      instance    title       tags mask     iscentered   isfloating   monitor    float x,y,w,h       floatborderpx*/
 	{ "Zathura",          NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Mupdf",            NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "Nxyt",             NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "Xchm",             NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "TelegramDesktop",  NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "Xchm",             NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "TelegramDesktop",  NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "Nxyt",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "ffplay",           NULL,       NULL,       1 << 4,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Krita",            NULL,       NULL,       1 << 5,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Gimp",             NULL,       NULL,       1 << 5,       0,           1,           -1,         50,50,500,500,        5 },
@@ -141,8 +141,8 @@ static const Layout layouts[] = {
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} }, \
-	{ CTRLMOD,                       KEY,      focusnthmon,    {.i  = TAG } }, \
-	{ CTRLMOD|ShiftMask,             KEY,      tagnthmon,      {.i  = TAG } },
+	{ CTRLMOD,                      KEY,      focusnthmon,    {.i  = TAG } }, \
+	{ CTRLMOD|ShiftMask,            KEY,      tagnthmon,      {.i  = TAG } },
 
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -150,7 +150,7 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf", selfgcolor, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *taski[]  = { "taski", NULL };
 
@@ -201,6 +201,11 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = taski } },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD("sadp -next") },
+	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("sadp -prev") },
+	{ MODKEY,                       XK_x,      spawn,          SHCMD("nohup sadp -repeat >/dev/null 2>&1") },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("sadp -pause") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("sadp -search 'dmenu -p Search -i -c -l 20 -z 500 -h 20'") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_Escape, togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
