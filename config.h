@@ -13,12 +13,12 @@ static const unsigned int systrayonleft   = 0;   	/* 0: systray in the right cor
 static const unsigned int systrayspacing  = 2;   /* systray spacing */
 static const unsigned int systrayiconsize = 50; /* reduce systray icon to 50% of it size(which is as a function of user_bh) */
 static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
-static const int showsystray              = 1;     /* 0 means no systray */
+static const int showsystray              = 0;     /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
-static int topbar             = 1;        /* 0 means bottom bar */
+static int topbar             = 0;        /* 0 means bottom bar */
 static int barvertpad         = 3;        /* vertical padding for status text */
 static const int focusonwheel       = 0;
-static const int vertpad            = 4;       /* vertical padding of bar */
+static const int vertpad            = 3;       /* vertical padding of bar */
 static const int sidepad            = 3;       /* horizontal padding of bar */
 static const int user_bh            = 34;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
@@ -106,7 +106,8 @@ static const Rule rules[] = {
 	{ "Xchm",             NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "TelegramDesktop",  NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Nxyt",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "ffplay",           NULL,       NULL,       1 << 4,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "Firefox",          NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "mpv",              NULL,       NULL,       1 << 4,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Krita",            NULL,       NULL,       1 << 5,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Gimp",             NULL,       NULL,       1 << 5,       0,           1,           -1,         50,50,500,500,        5 },
 };
@@ -151,6 +152,7 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
+//static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "40", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *taski[]  = { "taski", NULL };
 
@@ -165,11 +167,11 @@ ResourcePref resources[] = {
 		{ "normfgcolor",        STRING,  &normfgcolor },
 		{ "selbgcolor",         STRING,  &selbgcolor },
 		{ "selbordercolor",     STRING,  &selbordercolor },
-		{ "selfgcolor",					STRING,  &selfgcolor },
-		{ "borderpx",						INTEGER, &borderpx },
-		{ "snap",								INTEGER, &snap },
-		{ "showbar",						INTEGER, &showbar },
-		{ "topbar",							INTEGER, &topbar },
+		{ "selfgcolor",			STRING,  &selfgcolor },
+		{ "borderpx",			INTEGER, &borderpx },
+		{ "snap",				INTEGER, &snap },
+		{ "showbar",			INTEGER, &showbar },
+		{ "topbar",				INTEGER, &topbar },
 		{ "nmaster",          	INTEGER, &nmaster },
 		{ "resizehints",       	INTEGER, &resizehints },
 		{ "mfact",              FLOAT,   &mfact },
@@ -201,6 +203,8 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = taski } },
+	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("viper stop") },
 	{ MODKEY,                       XK_r,      spawn,          SHCMD("sadp -next") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("sadp -prev") },
 	{ MODKEY,                       XK_x,      spawn,          SHCMD("nohup sadp -repeat >/dev/null 2>&1") },
