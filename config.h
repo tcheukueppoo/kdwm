@@ -24,7 +24,7 @@ static const int user_bh            = 34;        /* 0 means that dwm will calcul
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
 static char dmenufont[]       = "FantasqueSansMono Nerd Font:size=10";
 static const char *fonts[]          = { font };
-static char normbgcolor[]           = "#dedede";
+static char normbgcolor[]           = "#d3d8ed";
 static char normbordercolor[]       = "#b4cad9";
 static char normfgcolor[]           = "#000000";
 static char selfgcolor[]            = "#eeeeee";
