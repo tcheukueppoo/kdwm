@@ -16,15 +16,15 @@ static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display
 static const int showsystray              = 0;     /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
 static int topbar             = 0;        /* 0 means bottom bar */
-static int barvertpad         = 3;        /* vertical padding for status text */
+static int barvertpad         = 12;        /* vertical padding for status text */
 static const int focusonwheel       = 0;
-static const int vertpad            = 3;       /* vertical padding of bar */
-static const int sidepad            = 3;       /* horizontal padding of bar */
-static const int user_bh            = 34;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
+static const int vertpad            = 0;       /* vertical padding of bar */
+static const int sidepad            = 0;       /* horizontal padding of bar */
+static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
 static char dmenufont[]       = "FantasqueSansMono Nerd Font:size=10";
 static const char *fonts[]          = { font };
-static char normbgcolor[]           = "#d3d8ed";
+static char normbgcolor[]           = "#bdae93";
 static char normbordercolor[]       = "#b4cad9";
 static char normfgcolor[]           = "#000000";
 static char selfgcolor[]            = "#eeeeee";
@@ -73,7 +73,7 @@ static char *colors[][4]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "(1)", "(2)", "(3)", "(4)", "(5)", "(6)", "(7)" };
+static const char *tags[] = { "1", "2", "3", "4", "5", };
 
 static char *tagsel[][2][2] = {
 	/*      norm                          sel       */
@@ -93,7 +93,7 @@ static const unsigned int ulinepad	= 0;	/* horizontal padding between the underl
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
 static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
-static const unsigned int topbelow      = 0;    /* 0 to underline, 1 to overline and else for both */
+static const unsigned int topbelow      = 2;    /* 0 to underline, 1 to overline and else for both */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -105,9 +105,8 @@ static const Rule rules[] = {
 	{ "Mupdf",            NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Xchm",             NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "TelegramDesktop",  NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "Nxyt",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "Firefox",          NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
-	{ "mpv",              NULL,       NULL,       1 << 4,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "Nyxt",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "firefox",          NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Krita",            NULL,       NULL,       1 << 5,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Gimp",             NULL,       NULL,       1 << 5,       0,           1,           -1,         50,50,500,500,        5 },
 };
@@ -154,7 +153,7 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 //static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "40", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *taski[]  = { "taski", NULL };
+static const char *taski[]    = { "taski", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -196,6 +195,9 @@ ResourcePref resources[] = {
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
 	{ "notify-send Mouse$BUTTON", 1 },
+	{ "notify-send Mouse$BUTTON", 2 },
+	{ "notify-send Mouse$BUTTON", 3 },
+	{ "notify-send Mouse$BUTTON", 4 },
 };
 static const char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
 
@@ -203,7 +205,7 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = taski } },
-	{ MODKEY|ShiftMask,             XK_l,      spawn,          SHCMD("slock") },
+	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("slock") },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("viper stop") },
 	{ MODKEY,                       XK_r,      spawn,          SHCMD("sadp -next") },
 	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("sadp -prev") },
@@ -291,11 +293,11 @@ static Button buttons[] = {
 	{ ClkStatusText,        0,              Button1,        spawn,          {.v = statuscmd } },
 	{ ClkStatusText,        0,              Button2,        spawn,          {.v = statuscmd } },
 	{ ClkStatusText,        0,              Button3,        spawn,          {.v = statuscmd } },
-	{ ClkClientWin,         ShiftMask,			Button1,        movemouse,      {0} },
+	{ ClkClientWin,         ShiftMask,      Button1,        movemouse,      {0} },
 	{ ClkClientWin,         ShiftMask,      Button2,        togglefloating, {0} },
 	{ ClkClientWin,         ShiftMask,      Button3,        resizemouse,    {0} },
-	{ ClkClientWin,         CTRLMOD,				Button1,				dragmfact,      {0} },
-	{ ClkClientWin,         CTRLMOD,				Button3,				dragcfact,      {0} },
+	{ ClkClientWin,         CTRLMOD,        Button1,        dragmfact,      {0} },
+	{ ClkClientWin,         CTRLMOD,        Button3,        dragcfact,      {0} },
 	{ ClkTagBar,            0,              Button1,        view,           {0} },
 	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
 	{ ClkTagBar,            MODKEY,         Button1,        tag,            {0} },
