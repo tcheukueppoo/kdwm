@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
 /* appearance */
-static unsigned int borderpx        = 2;        /* border pixel of windows */
+static unsigned int borderpx        = 0;        /* border pixel of windows */
 static unsigned int snap            = 32;       /* snap pixel */
 static const unsigned int gappih    = 3;       /* horiz inner gap between windows */
 static const unsigned int gappiv    = 3;       /* vert inner gap between windows */
@@ -24,9 +24,9 @@ static const int user_bh            = 30;        /* 0 means that dwm will calcul
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
 static char dmenufont[]       = "FantasqueSansMono Nerd Font:size=10";
 static const char *fonts[]          = { font };
-static char normbgcolor[]           = "#bdae93";
+static char normbgcolor[]           = "#282828";
 static char normbordercolor[]       = "#b4cad9";
-static char normfgcolor[]           = "#000000";
+static char normfgcolor[]           = "#bdae93";
 static char selfgcolor[]            = "#eeeeee";
 static char selbordercolor[]        = "#328fa8";
 static char selbgcolor[]            = "#005577";
@@ -119,18 +119,27 @@ static float mfact     = 0.55; /* factor of master area size [0.05..0.95] */
 static int nmaster     = 1;    /* number of clients in master area */
 static int resizehints = 0;    /* 1 means respect size hints in tiled resizals */
 
+#define FORCE_VSPLIT 1  /* nrowgrid layout: force two clients to always split vertically */
 #include "vanitygaps.c"
+
 static const Layout layouts[] = {
-	/* symbol     arrange function */
+ 	/* symbol     arrange function */
 	{ "[]=",      tile },    /* first entry is default */
-	{ ">M>",      centeredfloatingmaster },
-	{ "[M]",      monocle },
-	{ "H[]",      deck },
+ 	{ "[M]",      monocle },
 	{ "|M|",      centeredmaster },
+	{ ">M>",      centeredfloatingmaster },
+	{ "H[]",      deck },
+	{ "TTT",      bstack },
+	{ "###",      nrowgrid },
+	{ "---",      horizgrid },
+	{ "HHH",      grid },
+	{ "===",      bstackhoriz },
+	{ "[@]",      spiral },
+	{ "[\\]",     dwindle },
+	{ ":::",      gaplessgrid },
 	{ "><>",      NULL },    /* no layout function means floating behavior */
 	{ NULL,       NULL },
 };
-
 
 /* key definitions */
 #define MODKEY Mod4Mask
