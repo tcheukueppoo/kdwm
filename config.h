@@ -15,11 +15,11 @@ static const unsigned int systrayiconsize = 50; /* reduce systray icon to 50% of
 static const int systraypinningfailfirst  = 1;   /* 1: if pinning fails, display systray on the first monitor, False: display systray on the last monitor*/
 static const int showsystray              = 0;     /* 0 means no systray */
 static int showbar            = 1;        /* 0 means no bar */
-static int topbar             = 0;        /* 0 means bottom bar */
+static int topbar             = 1;        /* 0 means bottom bar */
 static int barvertpad         = 12;        /* vertical padding for status text */
 static const int focusonwheel       = 0;
-static const int vertpad            = 0;       /* vertical padding of bar */
-static const int sidepad            = 0;       /* horizontal padding of bar */
+static const int vertpad            = 3;       /* vertical padding of bar */
+static const int sidepad            = 3;       /* horizontal padding of bar */
 static const int user_bh            = 30;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
 static char font[]            = "FantasqueSansMono Nerd Font:size=10";
 static char dmenufont[]       = "FantasqueSansMono Nerd Font:size=10";
@@ -38,8 +38,8 @@ static char termcol4[] = "#0066ff"; /* blue    */
 static char termcol5[] = "#cc00ff"; /* magenta */
 static char termcol6[] = "#00ffff"; /* cyan    */
 static char termcol7[] = "#d0d0d0"; /* white   */
-static char termcol8[]  = "#808080"; /* black   */
-static char termcol9[]  = "#ff0000"; /* red     */
+static char termcol8[] = "#808080"; /* black   */
+static char termcol9[] = "#ff0000"; /* red     */
 static char termcol10[] = "#33ff00"; /* green   */
 static char termcol11[] = "#ff0099"; /* yellow  */
 static char termcol12[] = "#0066ff"; /* blue    */
@@ -65,35 +65,35 @@ static char *termcolor[] = {
   termcol15,
 };
 
-static char *colors[][4]      = {
+static char *colors[][4] = {
 	/*               fg         bg         border     float */
-	[SchemeNorm] = { normfgcolor, normbgcolor, normbordercolor, normbgcolor },
-	[SchemeSel]  = { selfgcolor,  selbgcolor,  selbordercolor,  selbgcolor },
+	[SchemeNorm]  = { normfgcolor, normbgcolor, normbordercolor, normbgcolor },
+	[SchemeSel]   = { selfgcolor,  selbgcolor,  selbordercolor,  selbgcolor },
 	[SchemeTitle] = { normfgcolor, normbgcolor, normbgcolor,  normbgcolor  },
 };
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "4", "5", };
+static const char *tags[] = { "A", "Б", "С", "Д", "Э", };
 
 static char *tagsel[][2][2] = {
 	/*      norm                          sel       */
 	/*  fg          bg              fg          bg  */
-	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
-	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
-	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
-	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
-	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
+	{ { normfgcolor, normbgcolor }, { termcol4, normbgcolor } },
+	{ { normfgcolor, normbgcolor }, { termcol2, normbgcolor } },
+	{ { normfgcolor, normbgcolor }, { termcol5, normbgcolor } },
+	{ { normfgcolor, normbgcolor }, { termcol2, normbgcolor } },
+	{ { normfgcolor, normbgcolor }, { termcol1, normbgcolor } },
 	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
 	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
 	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
 	{ { normfgcolor, normbgcolor }, { normfgcolor, normbgcolor } },
 };
 
-static const unsigned int ulinepad	= 0;	/* horizontal padding between the underline and tag */
+static const unsigned int ulinepad	   = 0;	/* horizontal padding between the underline and tag */
 static const unsigned int ulinestroke	= 2;	/* thickness / height of the underline */
 static const unsigned int ulinevoffset	= 0;	/* how far above the bottom of the bar the line should appear */
-static const int ulineall 		= 0;	/* 1 to show underline on all tags, 0 for just the active ones */
-static const unsigned int topbelow      = 2;    /* 0 to underline, 1 to overline and else for both */
+static const int ulineall 		         = 0;	/* 1 to show underline on all tags, 0 for just the active ones */
+static const unsigned int topbelow     = 2;  /* 0 to underline, 1 to overline and else for both */
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -159,8 +159,8 @@ static const Layout layouts[] = {
 
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
-static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
-//static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "40", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
+//static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
+static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "38", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 static const char *taski[]    = { "taski", NULL };
 
@@ -176,10 +176,10 @@ ResourcePref resources[] = {
 		{ "selbgcolor",         STRING,  &selbgcolor },
 		{ "selbordercolor",     STRING,  &selbordercolor },
 		{ "selfgcolor",			STRING,  &selfgcolor },
-		{ "borderpx",			INTEGER, &borderpx },
-		{ "snap",				INTEGER, &snap },
-		{ "showbar",			INTEGER, &showbar },
-		{ "topbar",				INTEGER, &topbar },
+		{ "borderpx",			   INTEGER, &borderpx },
+		{ "snap",				   INTEGER, &snap },
+		{ "showbar",			   INTEGER, &showbar },
+		{ "topbar",				   INTEGER, &topbar },
 		{ "nmaster",          	INTEGER, &nmaster },
 		{ "resizehints",       	INTEGER, &resizehints },
 		{ "mfact",              FLOAT,   &mfact },
