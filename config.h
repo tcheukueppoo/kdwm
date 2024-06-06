@@ -21,8 +21,8 @@ static const int focusonwheel       = 0;
 static const int vertpad            = 3;       /* vertical padding of bar */
 static const int sidepad            = 3;       /* horizontal padding of bar */
 static const int user_bh            = 31;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static char font[]            = "FantasqueSansMono Nerd Font:size=10";
-static char dmenufont[]       = "FantasqueSansMono Nerd Font:size=10";
+static char font[]            = "FantasqueSansM Nerd Font:size=10";
+static char dmenufont[]       = "FantasqueSansM Nerd Font:size=10";
 static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#282828";
 static char normbordercolor[]       = "#b4cad9";
