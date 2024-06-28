@@ -21,8 +21,8 @@ static const int focusonwheel       = 0;
 static const int vertpad            = 3;       /* vertical padding of bar */
 static const int sidepad            = 3;       /* horizontal padding of bar */
 static const int user_bh            = 31;        /* 0 means that dwm will calculate bar height, >= 1 means dwm will user_bh as bar height */
-static char font[]            = "FantasqueSansM Nerd Font:size=10";
-static char dmenufont[]       = "FantasqueSansM Nerd Font:size=10";
+static char font[]            = "UbuntuMono Nerd Font:size=10";
+static char dmenufont[]       = "UbuntuMono Nerd Font:size=10";
 static const char *fonts[]          = { font };
 static char normbgcolor[]           = "#282828";
 static char normbordercolor[]       = "#b4cad9";
@@ -214,13 +214,12 @@ static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = taski } },
-	{ MODKEY|ShiftMask,             XK_f,      spawn,          SHCMD("slock") },
-	{ MODKEY|ShiftMask,             XK_p,      spawn,          SHCMD("viper stop") },
-	{ MODKEY,                       XK_r,      spawn,          SHCMD("sadp -next") },
-	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("sadp -prev") },
-	{ MODKEY,                       XK_x,      spawn,          SHCMD("nohup sadp -repeat >/dev/null 2>&1") },
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("sadp -pause") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("sadp -search 'dmenu -p Search -i -c -l 20 -z 500 -h 20'") },
+	{ MODKEY,                       XK_f,      spawn,          SHCMD("slock") },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD("dmpc -next") },
+	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("dmpc -prev") },
+	{ MODKEY,                       XK_x,      spawn,          SHCMD("dmpc -repeat") },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("dmpc -pause") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("dmpc -search") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_Escape, togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
