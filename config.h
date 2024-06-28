@@ -162,7 +162,6 @@ static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() 
 static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 //static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "36", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
-static const char *taski[]    = { "taski", NULL };
 
 /*
  * Xresources preferences to load at startup
@@ -213,13 +212,13 @@ static const char *statuscmd[] = { "/bin/sh", "-c", NULL, NULL };
 static Key keys[] = {
 	/* modifier                     key        function        argument */
 	{ MODKEY,                       XK_a,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ShiftMask,             XK_a,      spawn,          {.v = taski } },
+	{ MODKEY|ShiftMask,             XK_a,      spawn,          SHCMD("~/.local/bin/taski") },
 	{ MODKEY,                       XK_f,      spawn,          SHCMD("slock") },
-	{ MODKEY,                       XK_r,      spawn,          SHCMD("dmpc -next") },
-	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("dmpc -prev") },
-	{ MODKEY,                       XK_x,      spawn,          SHCMD("dmpc -repeat") },
-	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("dmpc -pause") },
-	{ MODKEY,                       XK_e,      spawn,          SHCMD("dmpc -search") },
+	{ MODKEY,                       XK_r,      spawn,          SHCMD("~/.local/bin/dmpc -next") },
+	{ MODKEY|ShiftMask,             XK_r,      spawn,          SHCMD("~/.local/bin/dmpc -prev") },
+	{ MODKEY,                       XK_x,      spawn,          SHCMD("~/.local/bin/dmpc -repeat") },
+	{ MODKEY|ShiftMask,             XK_x,      spawn,          SHCMD("~/.local/bin/dmpc -pause") },
+	{ MODKEY,                       XK_e,      spawn,          SHCMD("~/.local/bin/dmpc -search") },
 	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY,                       XK_Escape, togglebar,      {0} },
 	{ MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
