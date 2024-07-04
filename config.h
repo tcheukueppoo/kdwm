@@ -100,16 +100,20 @@ static const Rule rules[] = {
 	 *	WM_CLASS(STRING) = instance, class
 	 *	WM_NAME(STRING) = title
 	 */
-	/* class      instance    title       tags mask     iscentered   isfloating   monitor    float x,y,w,h       floatborderpx*/
+	/* class              instance    title       tags mask     iscentered   isfloating   monitor    float x,y,w,h       floatborderpx*/
 	{ "Zathura",          NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Mupdf",            NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Xchm",             NULL,       NULL,       1 << 1,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "TelegramDesktop",  NULL,       NULL,       1 << 2,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Nyxt",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "firefox",          NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
+	{ "Surf",             NULL,       NULL,       1 << 3,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Krita",            NULL,       NULL,       1 << 5,       0,           0,           -1,         50,50,500,500,        5 },
 	{ "Gimp",             NULL,       NULL,       1 << 5,       0,           1,           -1,         50,50,500,500,        5 },
+	{ "ffplay",           NULL,       NULL,       0,            0,           1,           -1,         1366,0,360,282,       0 },
+	{ "mpv",              NULL,       NULL,       0,            0,           1,           -1,         1366,0,360,282,       0 },
 };
+
 /* disable wm awareness for some windows based on their WM_CLASS */
 /* this is mandatory for conky to work correctly */
 static const char *wmaware[] = { "Conky" };
@@ -160,7 +164,6 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
-//static const char *dmenucmd[] = { "dmenu_run", "-h", "23", "-y", "36", "-x", "4", "-i", "-m", dmenumon, "-fn", dmenufont, NULL };
 static const char *termcmd[]  = { "st", NULL };
 
 /*
@@ -202,7 +205,7 @@ ResourcePref resources[] = {
 
 /* commands spawned when clicking statusbar, the mouse button pressed is exported as BUTTON */
 static const StatusCmd statuscmds[] = {
-	{ "notify-send Mouse$BUTTON", 1 },
+	{ "taski", 1 },
 	{ "notify-send Mouse$BUTTON", 2 },
 	{ "notify-send Mouse$BUTTON", 3 },
 	{ "notify-send Mouse$BUTTON", 4 },
